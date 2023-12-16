@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\akun;
-use illuminate\http\request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class AkunController extends Controller
@@ -14,11 +15,12 @@ class AkunController extends Controller
     public function index()
     {
         $akun = akun::all();
-        return view('akun/view', 
-                        [
-                            'akun' => $akun,
-                        ]
-                    );
+        return view(
+            'akun/view',
+            [
+                'akun' => $akun,
+            ]
+        );
     }
 
     /**
@@ -26,11 +28,12 @@ class AkunController extends Controller
      */
     public function create()
     {
-        return view('akun/create',
-                   
-                  );
+        return view(
+            'akun/create',
+
+        );
     }
-        
+
     /**
      * Store a newly created resource in storage.
      * 
@@ -42,16 +45,16 @@ class AkunController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_akun' => 'required|unique:akun,kode_akun',
+            'kode_akun' => 'required',
             'nama_akun' => 'required',
-            'header_akun' => 'required'
+            'header_akun' => 'required',
         ]);
-    
-        $store = akun::create(['kode_akun' => $request->kode_akun, 'nama_akun'=> $request->nama_akun,'header_akun' => $request->header_akun]);
+
+        $store = akun::create(['kode_akun' => $request->kode_akun, 'nama_akun' => $request->nama_akun, 'header_akun' => $request->header_akun]);
         return redirect()->route('akun');
     }
-    
-        
+
+
 
     /**
      * Display the specified resource.
@@ -72,18 +75,15 @@ class AkunController extends Controller
     public function edit(akun $akun)
     {
         $akun = Akun::find($id);
-        if($akun)
-        {
+        if ($akun) {
             return response()->json([
-                'status'=>200,
-                'akun'=> $akun,
+                'status' => 200,
+                'akun' => $akun,
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
-                'status'=>404,
-                'message'=>'Tidak ada data ditemukan.'
+                'status' => 404,
+                'message' => 'Tidak ada data ditemukan.'
             ]);
         }
     }
@@ -112,14 +112,15 @@ class AkunController extends Controller
      */
     public function destroy(akun $akun)
     {
-         //hapus dari database
-         $akun = Akun::findOrFail($id);
-         $aakun->delete();
-         return view('akun/view',
-             [
-                 'akun' => $akun,
-                 'status_hapus' => 'Sukses Hapus'
-             ]
-         );
+        //hapus dari database
+        $akun = Akun::findOrFail($id);
+        $aakun->delete();
+        return view(
+            'akun/view',
+            [
+                'akun' => $akun,
+                'status_hapus' => 'Sukses Hapus'
+            ]
+        );
     }
 }

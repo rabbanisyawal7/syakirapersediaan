@@ -1,49 +1,121 @@
 <x-app-layout>
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="dropdown float-end">
-                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-dots-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="barang/create" class="dropdown-item">Tambah Barang</a>
-    
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Edit Barang</a>
-                        <!-- item-->
-                    </div>
-                </div>
 
-                <h4 class="header-title mt-0 mb-3">Tabel Barang</h4>
+    <x-slot name="css">
+        <!-- third party css -->
+        <link href="{{ asset('assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet"
+            type="text/css" />
+        <link href="{{ asset('assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}"
+            rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}" rel="stylesheet"
+            type="text/css" />
+        <link href="{{ asset('assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css') }}"
+            rel="stylesheet" type="text/css" />
+        <!-- third party css end -->
+    </x-slot>
 
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
+    <x-slot name="js">
+        <!-- third party js -->
+        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+        <!-- third party js ends -->
+
+        <!-- Datatables init -->
+        <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
+    </x-slot>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="mt-0 header-title">Data Tabel Barang</h4>
+                    <a href="{{ route('barang.create') }}" class="btn btn-info mb-3">Tambah Data</a>
+
+                    <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                         <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Kode barang</th>
-                            <th>Nama barang</th>
-                            <th>Harga barang</th>
-                            <th>Jenis barang</th>
-                            <th>Action</th>
-
-
-                        </tr>
+                            <tr>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Harga Barang</th>
+                                <th>Jenis Barang</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            </tr>
-                            <tr>
-                            </tr>    
+                            @foreach ($barang as $p)
+                                <tr>
+                                    <td>{{ $p->kode_barang }}</td>
+                                    <td>{{ $p->nama_barang }}</td>
+                                    <td>{{ $p->harga_barang }}</td>
+                                    <td>{{ $p->jenis_barang }}</td>
+                                    <td>
+                                        <a class="btn btn-primary"
+                                            href="{{ route('barang.edit', $p->id_barang) }}">Edit</a>
+                                        <a onclick="deleteConfirm(this); return false;" href="#"
+                                            class="btn btn-danger" data-id="{{ $p->id_barang }}">
+                                            Hapus</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
+
         </div>
-        
-    </div><!-- end col -->
-</div>
+    </div> <!-- end row -->
+
+    <script>
+        function deleteConfirm(e) {
+            var tomboldelete = document.getElementById('btn-delete')
+            id = e.getAttribute('data-id');
+
+            var url3 = "{{ url('barang/destroy/') }}";
+            var url4 = url3.concat("/", id);
+            tomboldelete.setAttribute("href", url4); //akan meload kontroller delete
+
+            var pesan = "Data dengan ID <b>"
+            var pesan2 = " </b>akan dihapus"
+            var res = id;
+            document.getElementById("xid").innerHTML = pesan.concat(res, pesan2);
+
+            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
+                keyboard: false
+            });
+
+            myModal.show();
+        }
+    </script>
+
+    <!-- Logout Delete Confirmation-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="xid"></div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </x-app-layout>

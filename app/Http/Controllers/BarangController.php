@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\barang;
-use App\Http\Requests\StorebarangRequest;
-use App\Http\Requests\UpdatebarangRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class BarangController extends Controller
 {
@@ -14,94 +15,39 @@ class BarangController extends Controller
     public function index()
     {
         $barang = barang::all();
-        return view('barang/view', 
-                        [
-                            'barang' => $barang,
-                        ]
-                    );
+        return view('barang/view', ['barang' => $barang,]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('barang/create');
     }
-        
-    /**
-     * Store a newly created resource in storage.
-     * 
-     * @param  \App\Http\Requests\StorebarangRequest  $request
-     * @return \Illuminate\Http\Response
-     * 
-     */
-    public function store(StorebarangRequest $request)
+
+    public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'ID_barang' => 'required',
-                'kode_barang' => 'required',
-                'nama_barang' => 'required',
-                'harga_barang' => 'required',
-                'jenis_barang' => 'required',
-            ]
-        );
+        $validated = $request->validate([
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'harga_barang' => 'required',
+            'jenis_barang' => 'required',
+        ]);
 
-        if($validator->fails()){
-            // gagal
-            return response()->json(
-                [
-                    'status' => 400,
-                    'errors' => $validator->messages(),
-                ]
-            );
-        }else{
-            // berhasil
-
-            // cek apakah tipenya input atau update
-            // input => tipeproses isinya adalah tambah
-            // update => tipeproses isinya adalah ubah
-            
-            if($request->input('tipeproses')=='tambah'){
-                // simpan ke db
-                barang::create($request->all());
-                return response()->json(
-                    [
-                        'status' => 200,
-                        'message' => 'Sukses Input Data',
-                    ]
-                );
-            }else{
-                // update ke db
-                $barang = barang::find($request->input('idbaranghidden'));
-            
-                // proses update dari inputan form data
-                $barang->ID_barang = $request->input('ID_barang');
-                $barang->kode_barang = $request->input('kode_barang');
-                $barang->nama_barang = $request->input('nama_barang');
-                $barang->harga_barang = $request->input('harga_barang');
-                $barang->jenis_barang = $request->input('jenis_barang');
-                $barang->update(); //proses update ke db
-
-                return response()->json(
-                    [
-                        'status' => 200,
-                        'message' => 'Sukses Update Data',
-                    ]
-                );
-            }
-        }
+        $store = barang::create([
+            'kode_barang' => $request->kode_barang,
+            'nama_barang' => $request->nama_barang,
+            'harga_barang' => $request->harga_barang,
+            'jenis_barang' => $request->jenis_barang,
+        ]);
+        return redirect()->route('barang.index');
     }
 
     /**
      * Display the specified resource.
-     * 
+     *
      * @param  \App\Models\barang  $barang
      * @return \Illuminate\Http\Response
-     * 
-     * 
+     *
+     *
      */
     public function show(barang $barang)
     {
@@ -111,57 +57,60 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(barang $barang)
+    public function edit($id_barang)
     {
-        $barang = barang::find($id);
-        if($barang)
-        {
-            return response()->json([
-                'status'=>200,
-                'barang'=> $barang,
-            ]);
+        $data = barang::all();
+        $get = DB::table('barang')->where('id_barang', $id_barang)->get();
+        foreach ($get as $p) {
+            $id_barang = $p->id_barang;
+            $nama_barang = $p->nama_barang;
+            $kode_barang = $p->kode_barang;
+            $harga_barang = $p->harga_barang;
+            $jenis_barang = $p->jenis_barang;
         }
-        else
-        {
-            return response()->json([
-                'status'=>404,
-                'message'=>'Tidak ada data ditemukan.'
-            ]);
-        }
+        return view('barang.edit', [
+            'data' => $data,
+            'id_barang' => $id_barang,
+            'nama_barang' => $nama_barang,
+            'kode_barang' => $kode_barang,
+            'harga_barang' => $harga_barang,
+            'jenis_barang' => $jenis_barang,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * 
-     * @param  \App\Http\Requests\UpdatebarangRequest  $request
-     * @param  \App\Models\barang  $barang
-     * @return \Illuminate\Http\Response
-     * 
-     * 
-     * 
-     */
-    public function update(UpdatebarangRequest $request, barang $barang)
+    public function update(Request $request, barang $barang)
     {
-        //
+        $validated = $request->validate([
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'harga_barang' => 'required',
+            'jenis_barang' => 'required',
+        ]);
+
+        $update = barang::where('id_barang', $request->id_barang)
+            ->update([
+                'kode_barang' => $request->kode_barang,
+                'nama_barang' => $request->nama_barang,
+                'harga_barang' => $request->harga_barang,
+                'jenis_barang' => $request->jenis_barang,
+            ]);
+        return redirect()->route('barang.index')
+            ->with('success', 'Data Berhasil di Input');
     }
 
     /**
      * Remove the specified resource from storage.
      * @param  \App\Models\barang  $barang
      * @return \Illuminate\Http\Response
-     * 
-     * 
+     *
+     *
      */
-    public function destroy(barang $barang)
+    public function destroy($id_barang)
     {
-         //hapus dari database
-         $barang = barang::findOrFail($id);
-         $abarang->delete();
-         return view('barang/view',
-             [
-                 'barang' => $barang,
-                 'status_hapus' => 'Sukses Hapus'
-             ]
-         );
+        $barang = barang::findOrFail($id_barang);
+        $barang->delete();
+
+        return redirect()->route('barang.index')
+            ->with('success', 'Data Berhasil di Hapus');
     }
 }

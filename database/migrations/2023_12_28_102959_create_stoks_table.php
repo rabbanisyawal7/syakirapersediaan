@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('akun', function (Blueprint $table) {
-            $table->id('id_akun');
-            $table->string('kode_akun')->unique();
-            $table->string('nama_akun');
-            $table->string('header_akun');
+        Schema::create('stok', function (Blueprint $table) {
+            $table->id('id_stok');
+            $table->bigInteger('barang_id')->unsigned();
+            $table->string('satuan');
+            $table->integer('stok_masuk');
+            $table->integer('stok_keluar');
+            $table->integer('stok_akhir');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('akun');
+        Schema::dropIfExists('stok');
     }
 };

@@ -34,35 +34,33 @@
         <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
     </x-slot>
 
-
-
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title">Akun</h4>
-                    <a href="{{ route('akun.create') }}" class="btn btn-info mb-3">Tambah Data</a>
+                    <h4 class="mt-0 header-title">Data Tabel Produksi</h4>
+                    <a href="{{ route('produksi.create') }}" class="btn btn-info mb-3">Tambah Data</a>
 
                     <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                         <thead>
                             <tr>
-                                <th>Nama Akun</th>
-                                <th>Kode Akun</th>
-                                <th>Header Akun</th>
+                                <th>Tanggal Produksi</th>
+                                <th>Kode Produksi</th>
+                                <th>Jumlah Produksi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($akun as $p)
+                            @foreach ($data as $p)
                                 <tr>
-                                    <td>{{ $p->nama_akun }}</td>
-                                    <td>{{ $p->kode_akun }}</td>
-                                    <td>{{ $p->header_akun }}</td>
+                                    <td>{{ $p->tgl_produksi }}</td>
+                                    <td>{{ $p->kode_produksi }}</td>
+                                    <td>{{ $p->jumlah_produksi }}</td>
                                     <td>
                                         <a class="btn btn-primary"
-                                            href="{{ route('akun.edit', $p->id_akun) }}">Edit</a>
+                                            href="{{ route('produksi.edit', $p->id_produksi) }}">Edit</a>
                                         <a onclick="deleteConfirm(this); return false;" href="#"
-                                            class="btn btn-danger" data-id="{{ $p->id_akun }}">
+                                            class="btn btn-danger" data-id="{{ $p->id_produksi }}">
                                             Hapus</a>
                                     </td>
                                 </tr>
@@ -80,7 +78,7 @@
             var tomboldelete = document.getElementById('btn-delete')
             id = e.getAttribute('data-id');
 
-            var url3 = "{{ url('akun/destroy/') }}";
+            var url3 = "{{ url('produksi/destroy/') }}";
             var url4 = url3.concat("/", id);
             tomboldelete.setAttribute("href", url4); //akan meload kontroller delete
 

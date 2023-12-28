@@ -41,28 +41,32 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Akun</h4>
-                    <a href="{{ route('akun.create') }}" class="btn btn-info mb-3">Tambah Data</a>
+                    <a href="{{ route('stok.create') }}" class="btn btn-info mb-3">Tambah Data</a>
 
                     <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                         <thead>
                             <tr>
-                                <th>Nama Akun</th>
-                                <th>Kode Akun</th>
-                                <th>Header Akun</th>
+                                <th>Nama Barang</th>
+                                <th>Satuan</th>
+                                <th>Stok Masuk</th>
+                                <th>Stok Keluar</th>
+                                <th>Stok Akhir</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($akun as $p)
+                            @foreach ($data as $p)
                                 <tr>
-                                    <td>{{ $p->nama_akun }}</td>
-                                    <td>{{ $p->kode_akun }}</td>
-                                    <td>{{ $p->header_akun }}</td>
+                                    <td>{{ $p->nama_barang }}</td>
+                                    <td>{{ $p->satuan }}</td>
+                                    <td>{{ $p->stok_masuk }}</td>
+                                    <td>{{ $p->stok_keluar }}</td>
+                                    <td>{{ $p->stok_akhir }}</td>
                                     <td>
                                         <a class="btn btn-primary"
-                                            href="{{ route('akun.edit', $p->id_akun) }}">Edit</a>
+                                            href="{{ route('stok.edit', $p->id_stok) }}">Edit</a>
                                         <a onclick="deleteConfirm(this); return false;" href="#"
-                                            class="btn btn-danger" data-id="{{ $p->id_akun }}">
+                                            class="btn btn-danger" data-id="{{ $p->id_stok }}">
                                             Hapus</a>
                                     </td>
                                 </tr>
@@ -80,7 +84,7 @@
             var tomboldelete = document.getElementById('btn-delete')
             id = e.getAttribute('data-id');
 
-            var url3 = "{{ url('akun/destroy/') }}";
+            var url3 = "{{ url('stok/destroy/') }}";
             var url4 = url3.concat("/", id);
             tomboldelete.setAttribute("href", url4); //akan meload kontroller delete
 

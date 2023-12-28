@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\ProduksiController;
+use App\Http\Controllers\StokController;
+
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,24 +39,24 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::controller(AkunController::class)->group(function () {
-    Route::get('/akun', 'index')->name('akun');
-    Route::get('/akun/create', 'create')->name('akun.create');
-    Route::post('/akun/store', 'store')->name('akun.store');
-    Route::get('/akun/edit/{id}', 'edit')->name('akun.edit');
-    Route::post('/akun/update', 'update')->name('akun.update');
-    Route::get('/akun/destroy/{id}', 'destroy') -> name('akun.destroy');
-});
+Route::resource('akun', AkunController::class);
+Route::post('/akun/update', [AkunController::class, 'update'])->name('akun.update');
+Route::get('/akun/destroy/{id}', [AkunController::class, 'destroy'])->name('akun.destroy');
 // End Route akun
 
-Route::controller(BarangController::class)->group(function () {
-    Route::get('/barang', 'index')->name('barang');
-    Route::get('/barang/create', 'create')->name('barang.create');
-    Route::post('/barang/store', 'store')->name('barang.store');
-    Route::get('/barang/edit/{id}', 'edit')->name('barang.edit');
-    Route::post('/barang/update', 'update')->name('barang.update');
-    Route::get('/barang/destroy/{id}', 'destroy') -> name('barang.destroy');
-});
+Route::resource('barang', BarangController::class);
+Route::post('/barang/update', [BarangController::class, 'update'])->name('barang.update');
+Route::get('/barang/destroy/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 // End Route barang
 
-require __DIR__.'/auth.php';
+Route::resource('produksi', ProduksiController::class);
+Route::post('/produksi/update', [ProduksiController::class, 'update'])->name('produksi.update');
+Route::get('/produksi/destroy/{id}', [ProduksiController::class, 'destroy'])->name('produksi.destroy');
+// End Route produksi
+
+Route::resource('stok', StokController::class);
+Route::post('/stok/update', [StokController::class, 'update'])->name('stok.update');
+Route::get('/stok/destroy/{id}', [StokController::class, 'destroy'])->name('stok.destroy');
+// End Route stok
+
+require __DIR__ . '/auth.php';

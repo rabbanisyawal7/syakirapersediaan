@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class barang extends Model
+class stok extends Model
 {
     use HasFactory;
 
-    protected $table = 'barang';
-    protected $primaryKey = 'id_barang';
+    protected $table = 'stok';
+    protected $primaryKey = 'id_stok';
 
     protected $guarded = [];
 }

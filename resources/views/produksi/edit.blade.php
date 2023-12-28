@@ -15,26 +15,26 @@
                     @endif
 
                     <div class="row">
-                        <form action="{{ route('barang.store') }}" id="form_validation" method="POST">
+                        <form action="{{ route('produksi.update') }}" id="form_validation" method="POST">
                             @csrf
+                            <input type="hidden" name="id_produksi" id="id_produksi" class="form-control"
+                                value="{{ $id_produksi }}">
                             <div class="mb-3">
-                                <label for="kode_barang" class="form-label">Kode Barang</label>
-                                <input type="text" id="kode_barang" name="kode_barang" class="form-control">
+                                <label for="kode_produksi" class="form-label">Kode Produksi</label>
+                                <input type="text" id="kode_produksi" name="kode_produksi" class="form-control"
+                                    value="{{ $kode_produksi }}">
                             </div>
 
                             <div class="mb-3">
-                                <label for="nama_barang" class="form-label">Nama Barang</label>
-                                <input type="text" id="nama_barang" name="nama_barang" class="form-control">
+                                <label for="tgl_produksi" class="form-label">Tanggal Produksi</label>
+                                <input type="date" id="tgl_produksi" name="tgl_produksi" class="form-control"
+                                    value="{{ $tgl_produksi }}">
                             </div>
 
                             <div class="mb-3">
-                                <label for="harga_barang" class="form-label">Harga Barang</label>
-                                <input type="number" id="harga_barang" name="harga_barang" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="jenis_barang" class="form-label">Jenis Barang</label>
-                                <input type="text" id="jenis_barang" name="jenis_barang" class="form-control">
+                                <label for="jumlah_produksi" class="form-label">Jumlah Produksi</label>
+                                <input type="number" id="jumlah_produksi" name="jumlah_produksi" class="form-control"
+                                    value="{{ $jumlah_produksi }}">
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
 

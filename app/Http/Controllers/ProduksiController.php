@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Persediaan;
 use App\Models\produksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,8 @@ class ProduksiController extends Controller
      */
     public function create()
     {
-        return view('produksi/create');
+        $data_barang = DB::table('barang')->get();
+        return view('produksi/create', ['data_barang' => $data_barang,]);
     }
 
     /**
@@ -33,6 +35,7 @@ class ProduksiController extends Controller
         $validated = $request->validate([
             'tgl_produksi' => 'required',
             'kode_produksi' => 'required',
+            'id_barang' => 'required',
             'jumlah_produksi' => 'required',
         ]);
 
@@ -40,7 +43,18 @@ class ProduksiController extends Controller
             'tgl_produksi' => $request->tgl_produksi,
             'kode_produksi' => $request->kode_produksi,
             'jumlah_produksi' => $request->jumlah_produksi,
+            'id_barang' => $request->id_barang,
         ]);
+
+        $barang = DB::table('barang')->where('id_barang', $request->id_barang)->first();
+
+        $persediaan = Persediaan::create([
+            'tgl_persediaan' => $request->tgl_produksi,
+            'keterangan' => 'Produksi' . $barang->nama_barang,
+            'id_barang' => $request->id_barang,
+            'kuantitas' => $request->jumlah_produksi,
+        ]);
+
         return redirect()->route('produksi.index');
     }
 

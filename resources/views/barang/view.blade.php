@@ -46,6 +46,7 @@
                             <tr>
                                 <th>Kode Barang</th>
                                 <th>Nama Barang</th>
+                                <th>Satuan</th>
                                 <th>Harga Barang</th>
                                 <th>Jenis Barang</th>
                                 <th>Action</th>
@@ -56,6 +57,7 @@
                                 <tr>
                                     <td>{{ $p->kode_barang }}</td>
                                     <td>{{ $p->nama_barang }}</td>
+                                    <td>{{ $p->satuan }}</td>
                                     <td>{{ $p->harga_barang }}</td>
                                     <td>{{ $p->jenis_barang }}</td>
                                     <td>

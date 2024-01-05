@@ -28,6 +28,11 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="satuan" class="form-label">Satuan</label>
+                                <input type="text" id="satuan" name="satuan" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="harga_barang" class="form-label">Harga Barang</label>
                                 <input type="number" id="harga_barang" name="harga_barang" class="form-control">
                             </div>

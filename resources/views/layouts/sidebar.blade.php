@@ -107,7 +107,7 @@
                                         class="hide-menu">Produksi</span></a>
                             </li>
                             <li>
-                                <a href="{{ route('stok.index') }}">Persediaan</a>
+                                <a href="{{ route('stok.index') }}">Stok Keluar</a>
                             </li>
                         </ul>
                     </div>
@@ -124,7 +124,7 @@
                     <div class="collapse" id="sidebarLaporan">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="tables-daftarstok.html">Daftar stok</a>
+                                <a href="{{ route('persediaan.index') }}">Daftar stok</a>
                             </li>
                         </ul>
                     </div>

@@ -40,17 +40,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title">Akun</h4>
+                    <h4 class="mt-0 header-title">Stok</h4>
                     <a href="{{ route('stok.create') }}" class="btn btn-info mb-3">Tambah Data</a>
 
                     <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
                         <thead>
                             <tr>
                                 <th>Nama Barang</th>
-                                <th>Satuan</th>
-                                <th>Stok Masuk</th>
                                 <th>Stok Keluar</th>
-                                <th>Stok Akhir</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,13 +55,8 @@
                             @foreach ($data as $p)
                                 <tr>
                                     <td>{{ $p->nama_barang }}</td>
-                                    <td>{{ $p->satuan }}</td>
-                                    <td>{{ $p->stok_masuk }}</td>
                                     <td>{{ $p->stok_keluar }}</td>
-                                    <td>{{ $p->stok_akhir }}</td>
                                     <td>
-                                        <a class="btn btn-primary"
-                                            href="{{ route('stok.edit', $p->id_stok) }}">Edit</a>
                                         <a onclick="deleteConfirm(this); return false;" href="#"
                                             class="btn btn-danger" data-id="{{ $p->id_stok }}">
                                             Hapus</a>

@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route; // Import the missing class
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\PersediaanController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StokController;
-
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,9 @@ Route::get('/produksi/destroy/{id}', [ProduksiController::class, 'destroy'])->na
 Route::resource('stok', StokController::class);
 Route::post('/stok/update', [StokController::class, 'update'])->name('stok.update');
 Route::get('/stok/destroy/{id}', [StokController::class, 'destroy'])->name('stok.destroy');
+
+Route::resource('persediaan', PersediaanController::class);
+Route::get('/persediaan/detail/{id}', [PersediaanController::class, 'detail'])->name('persediaan.detail');
 // End Route stok
 
 require __DIR__ . '/auth.php';

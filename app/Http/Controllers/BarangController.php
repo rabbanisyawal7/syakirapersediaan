@@ -28,6 +28,7 @@ class BarangController extends Controller
         $validated = $request->validate([
             'kode_barang' => 'required',
             'nama_barang' => 'required',
+            'satuan' => 'required',
             'harga_barang' => 'required',
             'jenis_barang' => 'required',
         ]);
@@ -35,6 +36,7 @@ class BarangController extends Controller
         $store = barang::create([
             'kode_barang' => $request->kode_barang,
             'nama_barang' => $request->nama_barang,
+            'satuan' => $request->satuan,
             'harga_barang' => $request->harga_barang,
             'jenis_barang' => $request->jenis_barang,
         ]);
@@ -64,6 +66,7 @@ class BarangController extends Controller
         foreach ($get as $p) {
             $id_barang = $p->id_barang;
             $nama_barang = $p->nama_barang;
+            $satuan = $p->satuan;
             $kode_barang = $p->kode_barang;
             $harga_barang = $p->harga_barang;
             $jenis_barang = $p->jenis_barang;
@@ -72,6 +75,7 @@ class BarangController extends Controller
             'data' => $data,
             'id_barang' => $id_barang,
             'nama_barang' => $nama_barang,
+            'satuan' => $satuan,
             'kode_barang' => $kode_barang,
             'harga_barang' => $harga_barang,
             'jenis_barang' => $jenis_barang,
@@ -83,6 +87,7 @@ class BarangController extends Controller
         $validated = $request->validate([
             'kode_barang' => 'required',
             'nama_barang' => 'required',
+            'satuan' => 'required',
             'harga_barang' => 'required',
             'jenis_barang' => 'required',
         ]);
@@ -91,6 +96,7 @@ class BarangController extends Controller
             ->update([
                 'kode_barang' => $request->kode_barang,
                 'nama_barang' => $request->nama_barang,
+                'satuan' => $request->satuan,
                 'harga_barang' => $request->harga_barang,
                 'jenis_barang' => $request->jenis_barang,
             ]);

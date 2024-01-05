@@ -40,7 +40,6 @@
                                 <th>Stok Masuk</th>
                                 <th>Stok Keluar</th>
                                 <th>Stok Tersedia</th>
-                                <th>Nilai Stok</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -53,21 +52,17 @@
                                 <th>Stok Masuk</th>
                                 <th>Stok Keluar</th>
                                 <th>Stok Tersedia</th>
-                                <th>Nilai Stok</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach ($data as $row)
                                 <tr>
-                                    <td>{{ $row->nama_item }}</td>
-                                    <td>{{ $row->satuan }}</td>
+                                    <td>{{ $row->nama_barang }}</td>
                                     <td>{{ $row->tgl_persediaan }}</td>
                                     <td>{{ $row->keterangan }}</td>
-                                    <td>{{ $row->harga_satuan }}</td>
                                     <td>{{ $row->kuantitas }}</td>
                                     <td>{{ $row->total_pengambilan }}</td>
                                     <td>{{ $row->kuantitas - $row->total_pengambilan }}</td>
-                                    <td>{{ ($row->kuantitas - $row->total_pengambilan) * $row->harga_satuan }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

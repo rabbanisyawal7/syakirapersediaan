@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('stok', function (Blueprint $table) {
             $table->id('id_stok');
             $table->bigInteger('barang_id')->unsigned();
-            $table->string('satuan');
-            $table->integer('stok_masuk');
             $table->integer('stok_keluar');
-            $table->integer('stok_akhir');
             $table->timestamps();
         });
     }

@@ -32,24 +32,15 @@
                             <th>Jenis Item</th>
                             <th>Satuan</th>
                             <th>Stok Tersedia</th>
-                            <th>Nilai Stok</th>
-                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $row)
                             <tr>
-                                <td>{{ $row->nama_item }}</td>
-                                <td>{{ $row->jenis_item }}</td>
+                                <td>{{ $row->nama_barang }}</td>
+                                <td>{{ $row->jenis_barang }}</td>
                                 <td>{{ $row->satuan }}</td>
-                                <td>{{ $row->total_persediaan - $row->total_pengambilan }}</td>
-                                <td>{{ $row->nilai_persediaan }}</td>
-                                <td>
-                                    <a href="{{ route('persediaan.detail', $row->id_item) }}"
-                                        class="btn btn-warning btn-circle">
-                                        <i class="fas fa-list"></i>
-                                    </a>
-                                </td>
+                                <td>{{ $row->total_persediaan }}</td>
                             </tr>
                         @endforeach
                     </tbody>

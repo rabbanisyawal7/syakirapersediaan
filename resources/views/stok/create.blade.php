@@ -27,20 +27,8 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="satuan" class="form-label">Satuan</label>
-                                <input type="text" id="satuan" class="form-control" name="satuan">
-                            </div>
-                            <div class="mb-3">
-                                <label for="stok_masuk" class="form-label">Stok Masuk</label>
-                                <input type="number" id="stok_masuk" class="form-control" name="stok_masuk">
-                            </div>
-                            <div class="mb-3">
                                 <label for="stok_keluar" class="form-label">Stok Keluar</label>
                                 <input type="number" id="stok_keluar" class="form-control" name="stok_keluar">
-                            </div>
-                            <div class="mb-3">
-                                <label for="stok_akhir" class="form-label">Stok Akhir</label>
-                                <input type="number" id="stok_akhir" class="form-control" name="stok_akhir">
                             </div>
                             <button types="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
                         </form>

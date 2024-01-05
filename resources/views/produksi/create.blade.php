@@ -23,6 +23,16 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="id_barang" class="form-label">Nama Barang</label>
+                                <select class="form-control" name="id_barang" id="id_barang">
+                                    <option value="">-- Pilih Nama Barang--</option>
+                                    @foreach ($data_barang as $p)
+                                        <option value="{{ $p->id_barang }}">{{ $p->nama_barang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="tgl_produksi" class="form-label">Tanggal Produksi</label>
                                 <input type="date" id="tgl_produksi" name="tgl_produksi" class="form-control">
                             </div>
